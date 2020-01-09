@@ -1,7 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:pkg_flutter/models/QARecordModel.dart';
+import 'package:pkg_flutter/screen/RecordPage.dart';
+import 'package:pkg_flutter/screen/arguments/RecordPageArguments.dart';
 
 class HomePage extends StatefulWidget {
+  static const routeName = '/home';
+
   HomePage({Key key}) : super(key: key);
 
   @override
@@ -13,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   final _inputQuestionController = TextEditingController();
   String _displayAnswer;
   List<String> _answerList;
+  Map<String, QARecordModel> _recordMap;
 
   @override
   void dispose() {
@@ -22,6 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   _HomePageState() {
     _displayAnswer = 'Wait your quesition.';
+    _recordMap = {};
     _answerList = [
       'It is certain.',
       'It is decidely so.',
@@ -47,7 +54,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _sendQuestion() {
-    if (_inputQuestionController.text == '') {
+    var question = _inputQuestionController.text;
+    if (question == '') {
       setState(() {
         _displayAnswer = 'Wait your question.';
       });
@@ -59,6 +67,8 @@ class _HomePageState extends State<HomePage> {
     var selectedAnswer = _answerList[num];
     setState(() {
       _displayAnswer = selectedAnswer;
+      // for navigate
+      _recordMap[question] = QARecordModel(DateTime.now(),question,selectedAnswer);
     });
   }
 
@@ -70,7 +80,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _navigateRecordPage() {
-    Navigator.pushNamed(context, '/record');
+    Navigator.pushNamed(
+      context,
+      RecordPage.routeName,
+      arguments: RecordPageArguments(_recordMap),
+    );
   }
 
   @override
