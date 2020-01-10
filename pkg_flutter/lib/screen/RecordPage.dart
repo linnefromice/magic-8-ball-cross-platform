@@ -12,8 +12,81 @@ class RecordPage extends StatefulWidget {
   _RecordPageState createState() => _RecordPageState();
 }
 
-
 class _RecordPageState extends State<RecordPage> {
+
+  Widget _buildHeader() {
+    return Container(
+      margin: EdgeInsets.all(2.0),
+      color: Colors.blue,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: _buildHeaderCell('TIME'),
+          ),
+          Expanded(
+            flex: 1,
+            child: _buildHeaderCell('QUESTION'),
+          ),
+          Expanded(
+            flex: 1,
+            child: _buildHeaderCell('ANSWER'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildHeaderCell(final String _msg) {
+    return Container(
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
+      padding: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
+      child: Text(
+        _msg,
+        style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic),
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+  Widget _buildDataRow(final QARecordModel model) {
+    return Container(
+      margin: EdgeInsets.all(2.0),
+      color: Colors.blue,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
+            child: _buildDataCell(DateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(model.time)),
+          ),
+          Expanded(
+            flex: 1,
+            child: _buildDataCell(model.question),
+          ),
+          Expanded(
+            flex: 1,
+            child: _buildDataCell(model.answer),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDataCell(final String _msg) {
+    return Container(
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
+      color: Colors.white,
+      height: 40,
+      child: Text(
+        _msg,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -28,32 +101,12 @@ class _RecordPageState extends State<RecordPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text('TIME'),
-                  Text('QUESTION'),
-                  Text('ANSWER'),
-                ],
-              ),
+              _buildHeader(),
               Expanded(child: ListView.builder(
                   itemCount: _datas.length,
                   itemBuilder: (BuildContext context, int index) {
                     QARecordModel model = _datas[_datas.keys.elementAt(index)];
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(DateFormat("yyyy/MM/dd").format(model.time)),
-                            Text(DateFormat("HH:mm:ss.SSS").format(model.time)),
-                          ],
-                        ),
-                        Text(model.question),
-                        Text(model.answer),
-                      ],
-                    );
+                    return _buildDataRow(model);
                   }
               ))
             ],
