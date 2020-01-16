@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  final _inputQuestionController = TextEditingController();
+  TextEditingController _inputQuestionController;
   String _displayAnswer;
   List<String> _answerList;
   Map<String, QARecordModel> _recordMap;
@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   _HomePageState() {
+    _inputQuestionController = TextEditingController();
     _displayAnswer = 'Wait your quesition.';
     _recordMap = {};
     _answerList = [
@@ -87,16 +88,18 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  Widget _buildFloatingActionButton() => FloatingActionButton(
+    child: Icon(Icons.arrow_right),
+    onPressed: _navigateRecordPage,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Magic 8 Ball'),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.arrow_right),
-        onPressed: _navigateRecordPage,
-      ),
+      floatingActionButton: _buildFloatingActionButton();
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
