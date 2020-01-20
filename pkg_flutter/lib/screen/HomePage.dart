@@ -99,13 +99,13 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Magic 8 Ball'),
       ),
-      floatingActionButton: _buildFloatingActionButton();
+      floatingActionButton: _buildFloatingActionButton(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Padding(
+            Container(
               padding: EdgeInsets.all(12.0),
               child: Text(
                 "Questioner",
@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Padding(
+            Container(
               padding: EdgeInsets.all(12.0),
               child: Text(
                 "Please enter your question.",
@@ -123,7 +123,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Padding(
+            Container(
               padding: EdgeInsets.all(12.0),
               child: TextField(
                 controller: _inputQuestionController,
@@ -134,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            Padding(
+            Container(
               padding: EdgeInsets.all(12.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -152,44 +152,44 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Padding(
+            Container(
               padding: EdgeInsets.all(4.0),
               child: Divider(
                 height: 24.0,
               ),
             ),
-            Padding(
+            Container(
               padding: EdgeInsets.all(4.0),
               child: Divider(
                 height: 24.0,
               ),
             ),
-            Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Respondent",
-                  style: TextStyle(
-                      fontSize: 36.0
-                  ),
-                )
+            Container(
+              padding: EdgeInsets.all(12.0),
+              child: Text(
+                "Respondent",
+                style: TextStyle(
+                    fontSize: 36.0
+                ),
+              )
             ),
-            Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  "Answer is ...",
-                  style: TextStyle(
-                      fontSize: 18.0
-                  ),
-                )
+            Container(
+              padding: EdgeInsets.all(12.0),
+              child: Text(
+                "Answer is ...",
+                style: TextStyle(
+                    fontSize: 18.0
+                ),
+              )
             ),
-            Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Text(
-                  _displayAnswer,
-                  style: TextStyle(
-                      fontSize: 18.0
-                  ),
-                )
+            Container(
+              padding: EdgeInsets.all(12.0),
+              child: Text(
+                _displayAnswer,
+                style: TextStyle(
+                    fontSize: 18.0
+                ),
+              )
             ),
           ],
         ),
