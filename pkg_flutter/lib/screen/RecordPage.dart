@@ -37,54 +37,51 @@ class _RecordPageState extends State<RecordPage> {
     );
   }
 
-  Widget _buildHeaderCell(final String _msg) {
-    return Container(
-      alignment: Alignment.center,
-      margin: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
-      padding: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
-      child: Text(
-        _msg,
-        style: TextStyle(color: Colors.white, fontStyle: FontStyle.italic),
-        textAlign: TextAlign.center,
+  Widget _buildHeaderCell(final String _msg) => Container(
+    alignment: Alignment.center,
+    margin: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
+    padding: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
+    child: Text(
+      _msg,
+      style: TextStyle(
+          color: Colors.white,
+          fontStyle: FontStyle.italic
       ),
-    );
-  }
+      textAlign: TextAlign.center,
+    ),
+  );
 
-  Widget _buildDataRow(final QARecordModel model) {
-    return Container(
-      margin: EdgeInsets.all(2.0),
-      color: Colors.blue,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: _buildDataCell(DateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(model.time)),
-          ),
-          Expanded(
-            flex: 1,
-            child: _buildDataCell(model.question),
-          ),
-          Expanded(
-            flex: 1,
-            child: _buildDataCell(model.answer),
-          ),
-        ],
-      ),
-    );
-  }
+  Widget _buildDataRow(final QARecordModel model) => Container(
+    margin: EdgeInsets.all(2.0),
+    color: Colors.blue,
+    child: Row(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: _buildDataCell(DateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(model.time)),
+        ),
+        Expanded(
+          flex: 1,
+          child: _buildDataCell(model.question),
+        ),
+        Expanded(
+          flex: 1,
+          child: _buildDataCell(model.answer),
+        ),
+      ],
+    ),
+  );
 
-  Widget _buildDataCell(final String _msg) {
-    return Container(
-      alignment: Alignment.center,
-      margin: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
-      color: Colors.white,
-      height: 40,
-      child: Text(
-        _msg,
-        textAlign: TextAlign.center,
-      ),
-    );
-  }
+  Widget _buildDataCell(final String _msg) => Container(
+    alignment: Alignment.center,
+    margin: EdgeInsets.only(left: 1.0, top: 2.0, right: 1.0, bottom: 2.0),
+    color: Colors.white,
+    height: 40,
+    child: Text(
+      _msg,
+      textAlign: TextAlign.center,
+    ),
+  );
 
 
   @override
@@ -92,6 +89,7 @@ class _RecordPageState extends State<RecordPage> {
 
     final RecordPageArguments _args = ModalRoute.of(context).settings.arguments;
     var _datas = _args.map;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Q/A Records'),
@@ -103,11 +101,11 @@ class _RecordPageState extends State<RecordPage> {
             children: <Widget>[
               _buildHeader(),
               Expanded(child: ListView.builder(
-                  itemCount: _datas.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    QARecordModel model = _datas[_datas.keys.elementAt(index)];
-                    return _buildDataRow(model);
-                  }
+                itemCount: _datas.length,
+                itemBuilder: (BuildContext context, int index) {
+                  QARecordModel model = _datas[_datas.keys.elementAt(index)];
+                  return _buildDataRow(model);
+                }
               ))
             ],
           ),

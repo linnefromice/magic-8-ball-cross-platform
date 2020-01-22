@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pkg_flutter/models/QARecordModel.dart';
 import 'package:pkg_flutter/screen/RecordPage.dart';
@@ -21,15 +20,17 @@ class _HomePageState extends State<HomePage> {
   Map<String, QARecordModel> _recordMap;
 
   @override
-  void dispose() {
-    _inputQuestionController.dispose();
-    super.dispose();
-  }
-
-  _HomePageState() {
+  void initState() {
+    super.initState();
     _inputQuestionController = TextEditingController();
     _displayAnswer = 'Wait your quesition.';
     _recordMap = {};
+  }
+
+  @override
+  void dispose() {
+    _inputQuestionController.dispose();
+    super.dispose();
   }
 
   void _sendQuestion() {
@@ -44,7 +45,6 @@ class _HomePageState extends State<HomePage> {
     var selectedAnswer = AnswerService.selectRandomAnswer();
     setState(() {
       _displayAnswer = selectedAnswer;
-      // for navigate
       _recordMap[question] = QARecordModel(DateTime.now(),question,selectedAnswer);
     });
   }
@@ -121,31 +121,31 @@ class _HomePageState extends State<HomePage> {
     child: Column(
       children: <Widget>[
         Container(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-              "Respondent",
-              style: TextStyle(
-                  fontSize: 36.0
-              ),
-            )
+          padding: EdgeInsets.all(12.0),
+          child: Text(
+            "Respondent",
+            style: TextStyle(
+              fontSize: 36.0
+            ),
+          )
         ),
         Container(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-              "Answer is ...",
-              style: TextStyle(
-                  fontSize: 18.0
-              ),
-            )
+          padding: EdgeInsets.all(12.0),
+          child: Text(
+            "Answer is ...",
+            style: TextStyle(
+              fontSize: 18.0
+            ),
+          )
         ),
         Container(
-            padding: EdgeInsets.all(12.0),
-            child: Text(
-              _displayAnswer,
-              style: TextStyle(
-                  fontSize: 18.0
-              ),
-            )
+          padding: EdgeInsets.all(12.0),
+          child: Text(
+            _displayAnswer,
+            style: TextStyle(
+              fontSize: 18.0
+            ),
+          )
         ),
       ],
     ),
