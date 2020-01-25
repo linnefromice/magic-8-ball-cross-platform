@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:pkg_flutter_bloc/blocs/QABloc.dart';
 import 'package:provider/provider.dart';
+
+import 'models/QARecord.dart';
 
 void main() => runApp(App());
 
@@ -30,6 +33,79 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Magic 8 Ball'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.navigation),
+        onPressed: () {
+          final list = bloc.getQARecordList();
+          showDialog(
+            context: context,
+            child: AlertDialog(
+                title: Text('Q/A Record List'),
+                content: Column(
+                  children: <Widget>[
+                    // TODO: Tentative version
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text(DateFormat("yyyy/MM/dd").format(list[0].time)),
+                            Text(DateFormat("HH:mm:ss.SSS").format(list[0].time)),
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text(list[0].question),
+                            Text(list[0].answer),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            Text(DateFormat("yyyy/MM/dd").format(list[1].time)),
+                            Text(DateFormat("HH:mm:ss.SSS").format(list[1].time)),
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
+                            Text(list[1].question),
+                            Text(list[1].answer),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                actions: <Widget>[
+                  FlatButton.icon(
+                    onPressed: () => Navigator.pop(context),
+                    icon: Icon(Icons.close),
+                    label: Text('CLOSE'),
+                  ),
+                ],
+            ),
+          );
+                /*
+                ListView.builder(
+                  itemCount: list.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final QARecord data = list[index];
+                    return Container(
+                      child: Row(
+                        children: <Widget>[
+                          Text(data.time.toString()),
+                          Text(data.question),
+                          Text(data.answer),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+                */
+        },
       ),
       body: Center(
         child: Column(
