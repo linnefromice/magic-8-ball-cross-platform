@@ -37,17 +37,11 @@ class HomePage extends StatelessWidget {
     ),
   );
 
-  Widget _buildRecordList(BuildContext context, final List<QARecord> list) => Column(
-    children: <Widget>[
-      Expanded(
-        child: ListView.builder(
-          itemCount: list.length,
-          itemBuilder: (BuildContext context, int index) {
-            return _buildRecordRow(list[index]);
-          },
-        ),
-      ),
-    ],
+  Widget _buildRecordList(BuildContext context, final List<QARecord> list) => ListView.builder(
+    itemCount: list.length,
+    itemBuilder: (BuildContext context, int index) {
+      return _buildRecordRow(list[list.length - (index + 1)]);
+    }
   );
 
   @override
@@ -70,12 +64,7 @@ class HomePage extends StatelessWidget {
                 child: SizedBox(
                   width: 400,
                   height: 800,
-                  child: ListView.builder(
-                    itemCount: list.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return _buildRecordRow(list[list.length - (index + 1)]);
-                    }
-                  ),
+                  child: _buildRecordList(context, list),
                 ),
               ),
               actions: <Widget>[
