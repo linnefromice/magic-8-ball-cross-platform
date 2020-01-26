@@ -46,7 +46,12 @@ class HomePage extends StatelessWidget {
 
   void _showDialog(final BuildContext context, final QABloc bloc) {
     final list = bloc.getQARecordList();
-    
+    final returnButton = FlatButton.icon(
+      onPressed: () => Navigator.pop(context),
+      icon: Icon(Icons.close),
+      label: Text('CLOSE'),
+    );
+
     showDialog(
       context: context,
       child: AlertDialog(
@@ -59,11 +64,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
         actions: <Widget>[
-          FlatButton.icon(
-            onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.close),
-            label: Text('CLOSE'),
-          ),
+          returnButton
         ],
       ),
     );
