@@ -70,6 +70,42 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  Widget _buildQuestionArea(final QABloc bloc) => Container(
+    child: Column(
+      children: <Widget>[
+        Text(
+          'Enter your question?:',
+        ),
+        TextField(
+          decoration: InputDecoration(labelText: 'QUESTION'),
+          onSubmitted: (String value) async {
+            bloc.addQuestion.add(value);
+          },
+        ),
+      ],
+    ),
+  );
+
+  Widget _buildAnswerArea(final QABloc bloc) => Container(
+    child: Column(
+      children: <Widget>[
+        Text(
+          'ANSWER is',
+        ),
+        StreamBuilder(
+          initialData: '',
+          stream: bloc.getAnswer,
+          builder: (context, snapshot) {
+            return Text(
+              '${snapshot.data}',
+              style: Theme.of(context).textTheme.display1,
+            );
+          },
+        ),
+      ],
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<QABloc>(context);
@@ -86,29 +122,9 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'Enter your question?:',
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'QUESTION'),
-              onSubmitted: (String value) async {
-                bloc.addQuestion.add(value);
-              },
-            ),
+            _buildQuestionArea(bloc),
             Divider(),
-            Text(
-              'ANSWER is',
-            ),
-            StreamBuilder(
-              initialData: '',
-              stream: bloc.getAnswer,
-              builder: (context, snapshot) {
-                return Text(
-                  '${snapshot.data}',
-                  style: Theme.of(context).textTheme.display1,
-                );
-              },
-            )
+            _buildAnswerArea(bloc),
           ],
         ),
       ),
