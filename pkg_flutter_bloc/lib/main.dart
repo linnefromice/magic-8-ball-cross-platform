@@ -44,6 +44,31 @@ class HomePage extends StatelessWidget {
     }
   );
 
+  void _showDialog(final BuildContext context, final QABloc bloc) {
+    final list = bloc.getQARecordList();
+    
+    showDialog(
+      context: context,
+      child: AlertDialog(
+        title: Text('Q/A Record List'),
+        content: SingleChildScrollView(
+          child: SizedBox(
+            width: 400,
+            height: 800,
+            child: _buildRecordList(context, list),
+          ),
+        ),
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.close),
+            label: Text('CLOSE'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<QABloc>(context);
@@ -54,29 +79,7 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigation),
-        onPressed: () {
-          final list = bloc.getQARecordList();
-          showDialog(
-            context: context,
-            child: AlertDialog(
-              title: Text('Q/A Record List'),
-              content: SingleChildScrollView(
-                child: SizedBox(
-                  width: 400,
-                  height: 800,
-                  child: _buildRecordList(context, list),
-                ),
-              ),
-              actions: <Widget>[
-                FlatButton.icon(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Icon(Icons.close),
-                  label: Text('CLOSE'),
-                ),
-              ],
-            ),
-          );
-        },
+        onPressed: () => _showDialog(context, bloc),
       ),
       body: Center(
         child: Column(
