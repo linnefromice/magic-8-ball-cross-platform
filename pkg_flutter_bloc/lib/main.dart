@@ -26,6 +26,30 @@ class App extends StatelessWidget {
 
 class HomePage extends StatelessWidget {
 
+  Widget _buildRecordRow(final QARecord data) => Container(
+    padding: EdgeInsets.all(4.0),
+    child: Column(
+      children: [
+        Text(DateFormat("yyyy/MM/dd HH:mm:ss.SSS").format(data.time)),
+        Text(data.question),
+        Text(data.answer),
+      ],
+    ),
+  );
+
+  Widget _buildRecordList(BuildContext context, final List<QARecord> list) => Column(
+    children: <Widget>[
+      Expanded(
+        child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (BuildContext context, int index) {
+            return _buildRecordRow(list[index]);
+          },
+        ),
+      ),
+    ],
+  );
+
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of<QABloc>(context);
@@ -41,70 +65,28 @@ class HomePage extends StatelessWidget {
           showDialog(
             context: context,
             child: AlertDialog(
-                title: Text('Q/A Record List'),
-                content: Column(
-                  children: <Widget>[
-                    // TODO: Tentative version
-                    Row(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Text(DateFormat("yyyy/MM/dd").format(list[0].time)),
-                            Text(DateFormat("HH:mm:ss.SSS").format(list[0].time)),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(list[0].question),
-                            Text(list[0].answer),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            Text(DateFormat("yyyy/MM/dd").format(list[1].time)),
-                            Text(DateFormat("HH:mm:ss.SSS").format(list[1].time)),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(list[1].question),
-                            Text(list[1].answer),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                actions: <Widget>[
-                  FlatButton.icon(
-                    onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.close),
-                    label: Text('CLOSE'),
+              title: Text('Q/A Record List'),
+              content: SingleChildScrollView(
+                child: SizedBox(
+                  width: 400,
+                  height: 800,
+                  child: ListView.builder(
+                    itemCount: list.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return _buildRecordRow(list[list.length - (index + 1)]);
+                    }
                   ),
-                ],
+                ),
+              ),
+              actions: <Widget>[
+                FlatButton.icon(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(Icons.close),
+                  label: Text('CLOSE'),
+                ),
+              ],
             ),
           );
-                /*
-                ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final QARecord data = list[index];
-                    return Container(
-                      child: Row(
-                        children: <Widget>[
-                          Text(data.time.toString()),
-                          Text(data.question),
-                          Text(data.answer),
-                        ],
-                      ),
-                    );
-                  },
-                ),
-                */
         },
       ),
       body: Center(

@@ -22,6 +22,14 @@ class QABloc {
   void _initForTest() {
     _qaRecordList.add(new QARecord(DateTime.now(), 'First Question', 'I am fine.'));
     _qaRecordList.add(new QARecord(DateTime.now(), 'Second Question', 'See you again.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '3rd Question', 'I am fine.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '4th Question', 'See you again.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '5th Question', 'I am fine.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '6th Question', 'See you again.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '7th Question', 'I am fine.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '8th Question', 'See you again.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '9th Question', 'I am fine.'));
+    _qaRecordList.add(new QARecord(DateTime.now(), '10th Question', 'See you again.'));
   }
 
   List<QARecord> getQARecordList() {
