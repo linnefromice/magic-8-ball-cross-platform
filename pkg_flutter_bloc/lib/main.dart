@@ -113,6 +113,24 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Magic 8 Ball'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            tooltip: 'refresh',
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute<void>(builder: (context) {
+                  return Provider<QABloc>(
+                    // TODO: 暫定版
+                    create: (context) => QABloc(),
+                    dispose: (context, bloc) => bloc.dispose(),
+                    child: HomePage(),
+                  );
+                })
+              );
+            },
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.navigation),
